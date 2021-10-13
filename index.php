@@ -1,10 +1,8 @@
-<?php require 'header.php' ?>
-
 <?php
+require 'header.php';
 include 'utils.php';
+
 if (isset($_GET['recherche'])) {
-
-
     if (isset($_GET['ville']) && !empty($_GET['ville'])) {
         $resultat = findVille($_GET['ville']);
         $_SESSION['lastVille'] = $_GET['ville'];
@@ -13,20 +11,22 @@ if (isset($_GET['recherche'])) {
     }
 }
 
-if (isset($_GET['favori'])) {
 
+
+if (isset($_GET['favori'])) {
     addFavorite($_SESSION['user'], $_SESSION['lastVille']);
 }
+
+
 
 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     $villesFavorites = findFavorite($_SESSION['user']);
 }
 ?>
 
-<h1>ACCUEIL API METEO</h1>
-
 </br>
-
+<h2>VOS VILLES FAVORITES</h2>
+<div class="row">
 <?php
 if (isset($_SESSION['user']) && !empty($_SESSION['user']) && isset($villesFavorites) && !empty($villesFavorites)) {
     foreach ($villesFavorites as $ville) {
@@ -36,7 +36,10 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user']) && isset($villesFavori
         <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title"> <?= $infosVille['name'] ?> </h5>
-                <h6 class="card-subtitle mb-2 text-muted"><?= $infosVille['temperature'] ?>°c</h6>
+                <div class="row">
+                    <h6 class="card-subtitle mb-2 text-muted"><?= $infosVille['temperature'] ?>°c</h6>
+                    <img src="https://openweathermap.org/img/wn/<?= $infosVille['icon'] ?>@2x.png" alt="icon">
+                </div>
                 <p class="card-text"><?= $infosVille['description'] ?></p>
             </div>
         </div>
@@ -44,33 +47,44 @@ if (isset($_SESSION['user']) && !empty($_SESSION['user']) && isset($villesFavori
 <?php
     }
 } ?>
+</div>
 
+<form autocomplete="off" action="" method="GET">
 
-<form action="" method="GET">
-    <input type="text" name="ville" placeholder="écrivez le nom d'une ville">
+    <input autocomplete="false" name="hidden" type="text" style="display:none;"> <!-- EMPECHE CHROME DE METTRE SES PUTINS DE SUGGESTIONS SOUS L'INPUT -->
 
-    <button type="submit" name="recherche" class="btn btn-primary">Rechercher</button>
+    <input autocomplete="off" id="search" class="form-control" type="text" name="ville" placeholder="écrivez le nom d'une ville">
+    <div id="match-list">
+    </div>
+
+    <button type="submit" name="recherche" class="btn btn-primary mt-3">Rechercher</button>
 </form>
 
 <?php if (isset($resultat)) { ?>
 
     <div class="card" style="width: 18rem;">
         <div class="card-body">
-            <h5 class="card-title"> <?= $resultat['name'] ?> </h5>
-            <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
-                <form method="GET">
-                    <button name="favori" class="btn btn-success">
-                        Ajouter aux favoris
-                    </button>
-                </form>
-            <?php } ?>
-            <h6 class="card-subtitle mb-2 text-muted"><?= $resultat['temperature'] ?>°c</h6>
+            <div class="row">
+                <h5 class="card-title col-6"> <?= $resultat['name'] ?> </h5>
+                <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
+                    <form class="col-6" method="GET">
+                        <button name="favori" class="btn btn-sm btn-success">
+                            Ajouter aux favoris
+                        </button>
+                    </form>
+                <?php } ?>
+            </div>
+            <div class="row">
+                <h6 class="card-subtitle mb-2 text-muted temperature"><?= $resultat['temperature'] ?>°c</h6>
+                <img src="https://openweathermap.org/img/wn/<?= $resultat['icon'] ?>@2x.png" alt="icon">
+            </div>
             <p class="card-text"><?= $resultat['description'] ?></p>
         </div>
     </div>
 
 <?php } ?>
 
+<script src="js/search_service.js"></script>
 </body>
 
 </html>
