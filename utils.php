@@ -109,6 +109,8 @@ function addHistory($ville, $temperature, $description){
         $creation = date('Y-m-d H:i:s');
 
         $req_pre->execute([$creation,$ville,$temperature, $description, $idUtilisateur]); // execution de la requete
+
+        $req_pre->errorInfo();
 }
 
 function findHistory($idUser){
@@ -122,4 +124,21 @@ function findHistory($idUser){
         return $data;
 
 }
+
+function addFavorite($idUser,$ville){
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $req_pre = $connexion->prepare("INSERT INTO ville_favorite (nom) VALUES (?)");
+        $req_pre->execute([$ville]);
+
+        $lastId = $connexion->lastInsertId();
+        $req_pre2 = $connexion->prepare("INSERT INTO ajoute (id,id_1) VALUES (?,?)");
+        $req_pre2->execute([$idUser, $lastId]);
+}
+
+function findFavorite($idUser){
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $stmt = $connexion->query("SELECT ville_favorite.Nom FROM utilisateur,ajoute,ville_favorite WHERE utilisateur.id = ajoute.id AND ville_favorite.id = ajoute.id_1 AND utilisateur.id = $idUser");
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+}       
 ?>
