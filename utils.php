@@ -140,5 +140,4 @@ function findFavorite($idUser){
         $stmt = $connexion->query("SELECT ville_favorite.Nom FROM utilisateur,ajoute,ville_favorite WHERE utilisateur.id = ajoute.id AND ville_favorite.id = ajoute.id_1 AND utilisateur.id = $idUser");
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
-}       
-?>
+}
