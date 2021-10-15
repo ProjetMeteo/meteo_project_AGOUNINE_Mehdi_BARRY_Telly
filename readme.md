@@ -2,14 +2,14 @@ Application d'affichage de méteo
 
 Installation
 
-prérequis : 
+prérequis :
 
 - php
 - mysql
 - un serveur web tel Apache
 
 Le plus simple étant d'avoir sur sa machine un outil tel xampp, wamp ou lamp selon votre systeme d'exploitation , la suite
- de ce guide va se consacrer à wamp mais l'installation est similaire avec d'autres logiciels.
+de ce guide va se consacrer à wamp mais l'installation est similaire avec d'autres logiciels.
 
  1 -> se placer dans le dossier 'www' situé a la racine du dossier 'wamp'
      cloner le projet dans le dossier :
