@@ -1,6 +1,6 @@
 <?php
 require 'header.php';
-include 'utils.php';
+include 'php_utils/utils.php';
 
 if (isset($_GET['recherche'])) {
     if (isset($_GET['ville']) && !empty($_GET['ville'])) {
@@ -15,40 +15,12 @@ if (isset($_GET['recherche'])) {
 
 if (isset($_GET['favori'])) {
     addFavorite($_SESSION['user'], $_SESSION['lastVille']); // $_Session['lastVille'] contient le nom de la derniere ville recherché
+    header('location:favoris.php');
 }
 
-
-// si l'utilisateur est connecté on récupère ses villes favorites
-if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
-    $villesFavorites = findFavorite($_SESSION['user']);
-}
 ?>
 
 </br>
-<h2>VOS VILLES FAVORITES</h2>
-<div class="row">
-<?php
-if (isset($_SESSION['user']) && !empty($_SESSION['user']) && isset($villesFavorites) && !empty($villesFavorites)) {
-    foreach ($villesFavorites as $ville) {
-        $infosVille = findVille($ville['Nom']);
-
-?>
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title"> <?= $infosVille['name'] ?> </h5>
-                <div class="row">
-                    <h6 class="card-subtitle mb-2 text-muted"><?= $infosVille['temperature'] ?>°c</h6>
-                    <img src="https://openweathermap.org/img/wn/<?= $infosVille['icon'] ?>@2x.png" alt="icon">
-                </div>
-                <p class="card-text"><?= $infosVille['description'] ?></p>
-            </div>
-        </div>
-
-<?php
-    }
-} ?>
-</div>
-
 <form autocomplete="off" action="" method="GET">
 
     <input autocomplete="false" name="hidden" type="text" style="display:none;"> <!-- EMPECHE CHROME DE METTRE SES PUTINS DE SUGGESTIONS SOUS L'INPUT -->

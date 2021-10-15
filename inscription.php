@@ -6,10 +6,15 @@ if (isset($_POST['submit'])){
     if (!isset($_POST['nom']) | empty($_POST['nom']) | !isset($_POST['prenom']) | empty($_POST['prenom']) | !isset($_POST['mail']) | empty($_POST['mail']) | !isset($_POST['mdp']) | empty($_POST['mdp'])){
         echo 'UN CHAMP EST VIDE !';
     }else{
-        // ENREGISTREMENT DES DONNEES EN BDD ICI
-        require 'utils.php';
-        addUser($_POST['mail'],$_POST['mdp'],$_POST['nom'],$_POST['prenom']);
-        header('location:connexion.php');
+        if (preg_match("/^[a-zA-Z-' ]*$/",$_POST['mail'])) {// regex de verification pour l'email
+            echo 'le mail ne respecte pas le bon format';
+          }else{
+              // ENREGISTREMENT DES DONNEES EN BDD ICI
+              require 'php_utils/utils.php';
+              addUser($_POST['mail'],$_POST['mdp'],$_POST['nom'],$_POST['prenom']);
+              header('location:connexion.php');
+
+          }
     }
 }
 

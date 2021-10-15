@@ -2,7 +2,7 @@
 
 <?php
 $idUser = $_SESSION['user'];
-require 'utils.php';
+require 'php_utils/utils.php';
 $lignesHistorique = findHistory($idUser);
 $infosUser = findUser($idUser);
 
@@ -10,10 +10,20 @@ if (isset($_POST['submit'])) {
     if (!isset($_POST['nom']) | empty($_POST['nom']) | !isset($_POST['prenom']) | empty($_POST['prenom']) | !isset($_POST['mail']) | empty($_POST['mail']) | !isset($_POST['mdp']) | empty($_POST['mdp'])) {
         echo 'UN CHAMP EST VIDE !';
     } else {
-        // ENREGISTREMENT DES DONNEES EN BDD ICI
-        updateUser($idUser, $_POST['mail'], $_POST['mdp'], $_POST['nom'], $_POST['prenom']);
-        header('location:compte.php');
+        if (preg_match("/^[a-zA-Z-' ]*$/",$_POST['mail'])) { // regex de verification pour l'email
+            echo 'le mail ne respecte pas le bon format';
+          }else{
+              // ENREGISTREMENT DES DONNEES EN BDD ICI
+              updateUser($idUser,$_POST['mail'],$_POST['mdp'],$_POST['nom'],$_POST['prenom']);
+              header('location:connexion.php');
+
+          }
     }
+}
+
+if(isset($_GET['deleteAllHistorique'])){
+    deleteAllHistorique($_SESSION['user']);
+    header('location:compte.php');
 }
 ?>
 
@@ -40,7 +50,7 @@ if (isset($_POST['submit'])) {
         <input class="form-control disable-input" type="text" name="mdp" value="<?= $infosUser['mdp'] ?>" disabled>
         </br>
 
-        <input id="unlock" class="btn btn-primary" name="unlock" value="modifier les informations">
+        <input id="unlock" class="btn btn-primary" name="unlock" value="modifier">
         <input class="btn btn-success" type="submit" name="submit" value="enregistrer les modifications">
 
     </form>
@@ -49,7 +59,13 @@ if (isset($_POST['submit'])) {
 <div class="historique">
     <h3>HISTORIQUE DE RECHERCHE</h3>
 
+    <form class="col-6" method="GET">
+    <button name="deleteAllHistorique" class="btn btn-sm btn-warning">
+        Supprimer l'historique
+    </button>
+</form>
 
+<div class="row">
     <?php
     if (!empty($lignesHistorique)) {
         foreach ($lignesHistorique as $ligne) {
@@ -67,7 +83,7 @@ if (isset($_POST['submit'])) {
 
     <?php }
     } ?>
-
+</div>
 </div>
 
 <script src="js/form_service.js"></script>

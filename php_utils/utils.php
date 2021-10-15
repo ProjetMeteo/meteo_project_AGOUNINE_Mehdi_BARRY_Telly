@@ -1,8 +1,9 @@
 <?php
 
+// FONCTIONS SUR LES USER
 function addUser($mail, $mdp, $nom, $prenom){
         
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root',''); // connexion a la bdd
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root',''); // connexion a la bdd
         
         $req_pre = $connexion->prepare("INSERT INTO utilisateur (mail, mdp, nom ,prenom) VALUES (?,?,?,?)"); // préparation de la requete
         
@@ -11,7 +12,7 @@ function addUser($mail, $mdp, $nom, $prenom){
 
 function updateUser($idUser,$mail, $mdp, $nom, $prenom){
 
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
 
         $req_pre = $connexion->prepare("UPDATE utilisateur SET mail = ?, mdp = ?, nom = ?, prenom = ? WHERE id = '$idUser'");
 
@@ -20,7 +21,7 @@ function updateUser($idUser,$mail, $mdp, $nom, $prenom){
 
 function findUser($idUser){
 
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
 
         $stmt = $connexion->query("SELECT * FROM utilisateur WHERE id = '$idUser'");
 
@@ -31,7 +32,7 @@ function findUser($idUser){
 
 function checkCredentials($mail, $mdp){
 
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
 
         $stmt = $connexion->query("SELECT id,mail,mdp FROM utilisateur WHERE mail = '$mail'");
 
@@ -60,7 +61,7 @@ function checkCredentials($mail, $mdp){
 
 }
 
-function findVille($ville){
+function findVille($ville, $addHistory = true){
     
             $curl = curl_init("https://api.openweathermap.org/data/2.5/weather?appid=fc383ec81d9c86f4fca37b87747e5dcc&lang=fr&units=metric&q=".$ville);
 
@@ -84,7 +85,7 @@ function findVille($ville){
                 $name = $data['name'];
                 $icon = $data['weather'][0]['icon'];
 
-                if(isset($_SESSION['user']) && !empty($_SESSION['user'])){
+                if(isset($_SESSION['user']) && !empty($_SESSION['user']) && $addHistory){
                         addHistory($name, $temperature, $description);
                 }
 
@@ -99,9 +100,10 @@ function findVille($ville){
         
 }
 
+// FONCTIONS SUR LES HISTORIQUES
 function addHistory($ville, $temperature, $description){
 
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root',''); // connexion a la bdd
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root',''); // connexion a la bdd
         
         $req_pre = $connexion->prepare("INSERT INTO historique (creation, villeName, temperature ,meteo, idUtilisateur) VALUES (?,?,?,?,?)"); // préparation de la requete
         
@@ -115,7 +117,7 @@ function addHistory($ville, $temperature, $description){
 
 function findHistory($idUser){
 
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
 
         $stmt = $connexion->query("SELECT * FROM historique WHERE idUtilisateur = '$idUser' ORDER BY creation DESC");
 
@@ -125,8 +127,14 @@ function findHistory($idUser){
 
 }
 
+function deleteAllHistorique($idUser){
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
+        $connexion->query("DELETE FROM historique WHERE idUtilisateur = $idUser");
+}
+
+// FONCTIONS SUR LES FAVORIES
 function addFavorite($idUser,$ville){
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
         $req_pre = $connexion->prepare("INSERT INTO ville_favorite (nom) VALUES (?)");
         $req_pre->execute([$ville]);
 
@@ -136,9 +144,20 @@ function addFavorite($idUser,$ville){
 }
 
 function findFavorite($idUser){
-        $connexion = new PDO('mysql:host=localhost;dbname=meteo','root','');
-        $stmt = $connexion->query("SELECT ville_favorite.Nom FROM utilisateur,ajoute,ville_favorite WHERE utilisateur.id = ajoute.id AND ville_favorite.id = ajoute.id_1 AND utilisateur.id = $idUser");
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
+        $stmt = $connexion->query("SELECT ville_favorite.id,ville_favorite.Nom FROM utilisateur,ajoute,ville_favorite WHERE utilisateur.id = ajoute.id AND ville_favorite.id = ajoute.id_1 AND utilisateur.id = $idUser");
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
-}       
+}
+
+function deleteAllFavoris($idUser){
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
+        $connexion->query("DELETE FROM ajoute WHERE id = $idUser");
+}
+
+function deleteFavori($idFav, $idUser){
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
+        $connexion->query("DELETE FROM ajoute WHERE id = $idUser AND id_1 = $idFav");
+}
+
 ?>
