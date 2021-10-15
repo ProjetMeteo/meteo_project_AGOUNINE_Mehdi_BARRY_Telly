@@ -15,7 +15,14 @@ cloner le projet dans le dossier :
 ```sh
 git clone https://github.com/ProjetMeteo/meteo_project_AGOUNINE_Mehdi_BARRY_Telly.git
 ```
+<br>
 
-2 -> via l'interface de phpMyAdmin , il faut importer la base de données
+- Il faut importer ensuite la base de données, celle ci se trouve dans le dossier BDD,
+le plus simple étant de l'importer via l'interface de PhpMyAdmin.
 
-3 -> lancer le serveur et le projet devrait etre dispo à l'adresse localhost/meteo
+<br>
+
+### lancer le projet
+
+- Pour lancer le projet il suffira de lancer le serveur wamp et le projet sera
+accessible à l'adresse : localhost/meteo_project_AGOUNINE_Mehdi_BARRY_Telly
