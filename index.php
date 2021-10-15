@@ -29,14 +29,14 @@ if (isset($_GET['favori'])) {
     <div id="match-list">
     </div>
 
-    <button type="submit" name="recherche" class="btn btn-primary mt-3">Rechercher</button>
+    <div class="recherche"><button type="submit" name="recherche" class="btn btn-primary mt-3">Rechercher</button></div>
 </form>
 
 <?php if (isset($resultat)) { ?>
 
-    <div class="card" style="width: 18rem;">
+    <div class="card mt-4" style="width: 100%;">
         <div class="card-body">
-            <div class="row">
+            <div class="row ligne">
                 <h5 class="card-title col-6"> <?= $resultat['name'] ?> </h5>
                 <?php if (isset($_SESSION['user']) && !empty($_SESSION['user'])) { ?>
                     <form class="col-6" method="GET">

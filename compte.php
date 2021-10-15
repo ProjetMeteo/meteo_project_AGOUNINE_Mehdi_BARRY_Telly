@@ -56,7 +56,7 @@ if(isset($_GET['deleteAllHistorique'])){
     </form>
 </div>
 
-<div class="historique">
+<div class="historique my-3">
     <h3>HISTORIQUE DE RECHERCHE</h3>
 
     <form class="col-6" method="GET">
@@ -72,7 +72,7 @@ if(isset($_GET['deleteAllHistorique'])){
             $dateTab = explode(' ', $ligne['creation']);
             $dateFormated = $dateTab[0] . " à " . $dateTab[1]; //ajoute le "à" entre la date et l'heure
     ?>
-            <div class="card" style="width: 18rem;">
+            <div class="card m-3" style="width: 18rem;">
                 <div class="card-body">
                     <h5 class="card-title"> <?= $ligne['villeName'] ?> </h5>
                     <h6 class="card-subtitle mb-2 text-muted">recherche effectué le <?= $dateFormated ?></h6></br>

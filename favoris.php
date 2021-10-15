@@ -34,9 +34,9 @@ if(isset($_GET['deleteAllFavoris'])){
             }
 
 ?>
-            <div class="card col-4" style="width: 18rem;">
+            <div class="card col-4 m-3" style="width: 18rem;">
                 <div class="card-body">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center ligne">
                         <h5 class="card-title"> <?= $infosVille['name'] ?> </h5>
                         <form class="col-6" method="GET">
                             <button name="ville-<?= $ville['id']?>" class="btn btn-sm btn-warning">

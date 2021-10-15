@@ -1,36 +1,48 @@
-body{
-    padding: 0 15%;
+body {
+  padding: 0 15%;
 }
 
-.row{
-    padding: 20px 0;
-    align-items: center;
+.row {
+  padding: 20px 0;
+  align-items: center;
 }
 
-.row>*{
-    width: auto;
+.row > * {
+  width: auto;
 }
 
-.btn-sm{
-    font-size: 10px;
+.btn-sm {
+  font-size: 10px;
 }
 
-.search-item{
-    background-color: #ececec;
-    padding: 5px 10px;
-    cursor: pointer;
+.search-item {
+  background-color: #ececec;
+  padding: 5px 10px;
+  cursor: pointer;
 }
-.search-item:hover{
-    background-color: #aff7b8;
+.search-item:hover {
+  background-color: #aff7b8;
 }
-.coord{
-    font-size: 10px;
-    font-style: italic;
-    color: grey;
+.coord {
+  font-size: 10px;
+  font-style: italic;
+  color: grey;
 }
-.temperature{
-    font-size: 24px;
+.temperature {
+  font-size: 24px;
 }
-.row img{
-    width: 70px;
+.row img {
+  width: 70px;
+}
+.recherche {
+  display: flex;
+  justify-content: center;
+}
+
+.ligne{
+    justify-content: space-between;
+}
+
+h3,h2,h1{
+    text-align: center;
 }
