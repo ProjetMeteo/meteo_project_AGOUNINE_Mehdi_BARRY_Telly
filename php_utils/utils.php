@@ -10,6 +10,15 @@ function addUser($mail, $mdp, $nom, $prenom){
         $req_pre->execute([$mail,$mdp,$nom,$prenom]); // execution de la requete
 }
 
+function deleteUser($idUser){
+
+        deleteAllHistorique($idUser);
+        deleteAllFavoris($idUser);
+        $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');
+        $connexion->query("DELETE FROM utilisateur WHERE id = $idUser");
+
+}
+
 function updateUser($idUser,$mail, $mdp, $nom, $prenom){
 
         $connexion = new PDO('mysql:host=localhost;dbname=meteo_project_bdd_AM_BT','root','');

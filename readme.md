@@ -65,3 +65,4 @@ De plus , il a la possibilité lorsqu'il effectue une recherche , d'enregistrer 
 - L'ensemble des fonctions liés la bdd se trouvent dans le fichier utils.php du dossier php_utils
 - le traitement des formulaires de connexion et d'inscription est fait directement sur les pages concernées, pareil pour la modification des infos du compte.
 - Il s'agit d'un projet étudiant, cette application n'est pas faite pour une utilisation professionelle , en raison d'un manque évident de sécurité.
+- BUG avec la suppression de compte , le compte est bien supprimé mais la redirection ne redirige pas la ou il faut, triste.

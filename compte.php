@@ -1,7 +1,11 @@
 <?php require 'header.php' ?>
 
 <?php
-$idUser = $_SESSION['user'];
+if($_SESSION['user']){
+    $idUser = $_SESSION['user'];
+}else{
+    header('location:index.php');
+}
 require 'php_utils/utils.php';
 $lignesHistorique = findHistory($idUser);
 $infosUser = findUser($idUser);
@@ -52,6 +56,7 @@ if(isset($_GET['deleteAllHistorique'])){
 
         <input id="unlock" class="btn btn-primary" name="unlock" value="modifier">
         <input class="btn btn-success" type="submit" name="submit" value="enregistrer les modifications">
+        <button id="deleteAccount" class="btn btn-danger">Supprimer le compte</button>
 
     </form>
 </div>
