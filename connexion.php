@@ -17,7 +17,7 @@ if (isset($_POST['submit'])){
     </br>
 
     <label class="form-label" for="mdp">Mot de Passe : </label>
-    <input class="form-control" type="text" name="mdp">
+    <input class="form-control" type="password" name="mdp">
     </br>
 
     <input class="btn btn-primary" type="submit" name ="submit" value="connexion">
