@@ -6,7 +6,7 @@ if (isset($_POST['submit'])){
         echo 'UN CHAMP EST VIDE !';
     }else{
         require 'utils.php';
-        checkCredentials($_POST['mail'],$_POST['mdp']);
+        checkCredentials($_POST['mail'],$_POST['mdp']); // appel de la fonction de vérification des identifiants qui redirige si ceux si sont en bdd.
     }
 }
 ?>

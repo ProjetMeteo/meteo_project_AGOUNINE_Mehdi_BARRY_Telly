@@ -1,7 +1,7 @@
 const search = document.querySelector('#search')
 const matchList = document.querySelector('#match-list')
 
-// search in the citie json file all city name that match the search input value
+// cherche dans le fichier json la liste des villes qui match avec la valeur de l'input
 const searchCity = async searchText => {
     const res = await fetch('./city.list.json');
     const cities = await res.json()
@@ -11,13 +11,13 @@ const searchCity = async searchText => {
         return city.name.match(regex);
     })
 
-    // erase result and html search child when input is empty
+    // efface tous les résultats quand l'input est vidé
     if (searchText.length === 0){
         matches = []
         matchList.innerHTML = '';
     }
 
-    // order by Alphabetical
+    // tri les résultats par ordre alphabétique
     orderedMatches = matches.sort((a, b) => {
         if(a.name > b.name){return 1}
         if(a.name < b.name){return -1}
@@ -28,7 +28,7 @@ const searchCity = async searchText => {
 }
 
 
-// Show result in HTML
+// on stockes les résultats dans une variable qui va contenir le retour en html et on l'injecte dans la page d'accueil sous l'input
 
 const outputHtml = matches => {
     if(matches.length > 0){

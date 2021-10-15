@@ -24,7 +24,7 @@ function findUser($idUser){
 
         $stmt = $connexion->query("SELECT * FROM utilisateur WHERE id = '$idUser'");
 
-        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC); // le paramètre "PDO::FETCH_ASSOC" permet de renvoyer les résultats de la requete sous forme d'un tableau associatif.
 
         return $data;
 }

@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
     if (!empty($lignesHistorique)) {
         foreach ($lignesHistorique as $ligne) {
             $dateTab = explode(' ', $ligne['creation']);
-            $dateFormated = $dateTab[0] . " à " . $dateTab[1];
+            $dateFormated = $dateTab[0] . " à " . $dateTab[1]; //ajoute le "à" entre la date et l'heure
     ?>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">

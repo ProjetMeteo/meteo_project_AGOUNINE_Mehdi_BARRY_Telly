@@ -7,18 +7,18 @@ if (isset($_GET['recherche'])) {
         $resultat = findVille($_GET['ville']);
         $_SESSION['lastVille'] = $_GET['ville'];
     } else {
-        $resultat = findVille('Paris'); // VILLE PAR DEFAULT 
+        $resultat = findVille('Paris'); // VILLE PAR DEFAULT lorsque la recherche est vide
     }
 }
 
 
 
 if (isset($_GET['favori'])) {
-    addFavorite($_SESSION['user'], $_SESSION['lastVille']);
+    addFavorite($_SESSION['user'], $_SESSION['lastVille']); // $_Session['lastVille'] contient le nom de la derniere ville recherché
 }
 
 
-
+// si l'utilisateur est connecté on récupère ses villes favorites
 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
     $villesFavorites = findFavorite($_SESSION['user']);
 }
