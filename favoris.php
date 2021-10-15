@@ -21,7 +21,7 @@ if(isset($_GET['deleteAllFavoris'])){
 </form>
 
 <div class="row">
-    <?php
+<?php
     if (isset($_SESSION['user']) && !empty($_SESSION['user']) && isset($villesFavorites) && !empty($villesFavorites)) {
         foreach ($villesFavorites as $ville) {
             $infosVille = findVille($ville['Nom'], false);
@@ -33,7 +33,7 @@ if(isset($_GET['deleteAllFavoris'])){
                 header('location:favoris.php');
             }
 
-    ?>
+?>
             <div class="card col-4" style="width: 18rem;">
                 <div class="card-body">
                     <div class="row align-items-center">

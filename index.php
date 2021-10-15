@@ -15,7 +15,7 @@ if (isset($_GET['recherche'])) {
 
 if (isset($_GET['favori'])) {
     addFavorite($_SESSION['user'], $_SESSION['lastVille']); // $_Session['lastVille'] contient le nom de la derniere ville recherché
-    header('location:favoris.php');
+    header('location:index.php');
 }
 
 ?>
