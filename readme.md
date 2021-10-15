@@ -16,8 +16,17 @@ git clone https://github.com/ProjetMeteo/meteo_project_AGOUNINE_Mehdi_BARRY_Tell
 ```
 <br>
 
-- Il faut importer ensuite la base de données, celle ci se trouve dans le dossier BDD, sous le nom meteo_project_AGOUNINE_Mehdi_BARRY_Telly.sql
-le plus simple étant de l'importer via l'interface de PhpMyAdmin.
+Il faut ensuite créer la base de données puis importer les tables depuis le fichier meteo_project_bdd_am_bt.sql situé dans le dossier BDD.
+
+Via PhpMyAdmin : 
+
+
+
+- Créer une base de données portant le nom <i>meteo_project_bdd_am_bt</i>
+- Sélectionner là , puis rendez vous dans l'onglet <i>importer</i>
+- Ici vous pouvez choisir le fichier à importer et executer l'importation.
+
+Une fois la base de données installé il ne reste qu'a lancer le projet !
 
 <br>
 
